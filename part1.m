@@ -3,7 +3,11 @@ clc, clear variables;
 
 global a D T
 
-a = 2; D = 10; tau = 2; N = 100; T = 4;
+a = 2; D = 10; T = 4;
+
+tau = 2; 
+N = 100; 
+l = 0.4;
 
 
 u_b1 = @(t) sin(2*pi*t/tau);
@@ -12,22 +16,22 @@ u_b2 = @(t) sign(sin(2*pi*t/tau));
 
 % For 'g_sin'
 
-[t, x, u_lf1] = hyperbolic1D(1, 100, u_b1, 0.4);
+[t, x, u_lf1] = hyperbolic1D(1, N, u_b1, l);
 
-[~, ~, u_up1] = hyperbolic1D(2, 100, u_b1, 0.4);
+[~, ~, u_up1] = hyperbolic1D(2, N, u_b1, l);
 
-[~, ~, u_lw1] = hyperbolic1D(3, 100, u_b1, 0.4);
+[~, ~, u_lw1] = hyperbolic1D(3, N, u_b1, l);
 
 plot(x,u_lf1(:,end)); hold on; plot(x,u_up1(:,end));plot(x,u_lw1(:,end))
 xlabel("x")
 legend("Lax-Friedrich", "Upwind", "Lax-Wendroff")
 % For 'g_sin'
 
-[~, x, u_lf2] = hyperbolic1D(1, 100, u_b2, 0.4);
+[~, x, u_lf2] = hyperbolic1D(1, N, u_b2, l);
 
-[~, ~, u_up2] = hyperbolic1D(2, 100, u_b2, 0.4);
+[~, ~, u_up2] = hyperbolic1D(2, N, u_b2, l);
 
-[~, ~, u_lw2] = hyperbolic1D(3, 100, u_b2, 0.4);
+[~, ~, u_lw2] = hyperbolic1D(3, N, u_b2, l);
 
 figure
 plot(x,u_lf2(:,end)); hold on; plot(x,u_up2(:,end));plot(x,u_lw2(:,end))
