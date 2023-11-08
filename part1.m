@@ -10,23 +10,30 @@ u_b1 = @(t) sin(2*pi*t/tau);
 
 u_b2 = @(t) sign(sin(2*pi*t/tau));
 
-[t, x, u_wf] = hyperbolic1D(1, 100, u_b1, 0.4);
+% For 'g_sin'
 
-[~, ~, u_up] = hyperbolic1D(2, 100, u_b1, 0.4);
+[t, x, u_lf1] = hyperbolic1D(1, 100, u_b1, 0.4);
 
-[~, ~, u_wl] = hyperbolic1D(3, 100, u_b1, 0.4);
+[~, ~, u_up1] = hyperbolic1D(2, 100, u_b1, 0.4);
 
+[~, ~, u_lw1] = hyperbolic1D(3, 100, u_b1, 0.4);
 
-surf(t,x, u_wf)
-shading interp
+plot(x,u_lf1(:,end)); hold on; plot(x,u_up1(:,end));plot(x,u_lw1(:,end))
+xlabel("x")
+legend("Lax-Friedrich", "Upwind", "Lax-Wendroff")
+% For 'g_sin'
+
+[~, x, u_lf2] = hyperbolic1D(1, 100, u_b2, 0.4);
+
+[~, ~, u_up2] = hyperbolic1D(2, 100, u_b2, 0.4);
+
+[~, ~, u_lw2] = hyperbolic1D(3, 100, u_b2, 0.4);
 
 figure
-surf(t,x, u_up)
-shading interp
+plot(x,u_lf2(:,end)); hold on; plot(x,u_up2(:,end));plot(x,u_lw2(:,end))
+xlabel("x")
+legend("Lax-Friedrich", "Upwind", "Lax-Wendroff")
 
-figure
-surf(t,x, u_wl)
-shading interp
 
 function [t, x, u] = hyperbolic1D(scheme, N, bound, lambda)
 
@@ -56,9 +63,6 @@ function [t, x, u] = hyperbolic1D(scheme, N, bound, lambda)
     uk = u0;
     for n = 2:length(t)
         u_new = A*uk + [bound(t(n)); zeros(N-2,1); 2*uk(end)-uk(end-1)];
-        if ismember(n,2:1000)
-        disp(2*uk(end)-uk(end-1))
-        end
         u(:,n) = u_new;
         uk = u_new;
     end

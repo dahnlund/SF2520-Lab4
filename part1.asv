@@ -1,7 +1,7 @@
 %% Computer Exercise 4, David Ahnlund, Emil Gestsson
 clc, clear variables;
 
-global a D T dx
+global a D T
 
 a = 2; D = 10; tau = 2; N = 100; T = 4;
 
@@ -10,19 +10,19 @@ u_b1 = @(t) sin(2*pi*t/tau);
 
 u_b2 = @(t) sign(sin(2*pi*t/tau));
 
-u_wf = hyperbolic(1, 100, u_b1, 0.4);
+% For 'g_sin'
 
-u_up = hyperbolic(2, 100, u_b1, 0.4);
+[t, x, u_wf] = hyperbolic1D(1, 100, u_b1, 0.4);
 
-u_wl = hyperbolic(3, 100, u_b1, 0.4);
+[~, ~, u_up] = hyperbolic1D(2, 100, u_b1, 0.4);
 
+[~, ~, u_wl] = hyperbolic1D(3, 100, u_b1, 0.4);
 
-x = 0:dx:D-dx;
+plot(x,u_wl(:,end));plot(x,u_up(:,end));plot(x,u_wl(:,end))
 
-surf(t,x,saved_u)
-shading interp
+% For 'g_sin'
 
-function [tu = hyperbolic(scheme, N, bound, lambda)
+function [t, x, u] = hyperbolic1D(scheme, N, bound, lambda)
 
     global D T a dx dt t
     
@@ -56,5 +56,7 @@ function [tu = hyperbolic(scheme, N, bound, lambda)
         u(:,n) = u_new;
         uk = u_new;
     end
+
+    x = 0:dx:D-dx;
 
 end
