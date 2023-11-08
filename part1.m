@@ -10,11 +10,11 @@ u_b1 = @(t) sin(2*pi*t/tau);
 
 u_b2 = @(t) sign(sin(2*pi*t/tau));
 
-[t, x, u_wf] = hyperbolic(1, 100, u_b1, 0.4);
+[t, x, u_wf] = hyperbolic1D(1, 100, u_b1, 0.4);
 
-[~, ~, u_up] = hyperbolic(2, 100, u_b1, 0.4);
+[~, ~, u_up] = hyperbolic1D(2, 100, u_b1, 0.4);
 
-[~, ~, u_wl] = hyperbolic(3, 100, u_b1, 0.4);
+[~, ~, u_wl] = hyperbolic1D(3, 100, u_b1, 0.4);
 
 
 surf(t,x, u_wf)
@@ -28,7 +28,7 @@ figure
 surf(t,x, u_wl)
 shading interp
 
-function [t, x, u] = hyperbolic(scheme, N, bound, lambda)
+function [t, x, u] = hyperbolic1D(scheme, N, bound, lambda)
 
     global D T a dx dt t
     
