@@ -4,12 +4,12 @@ clc, clear variables;
 global a D T
 
 a = 2; D = 10; T = 4;
-
-tau = 2; 
+ 
 N = 100; 
 l = 0.4;
 
 
+tau = 2;
 u_b1 = @(t) sin(2*pi*t/tau);
 
 u_b2 = @(t) sign(sin(2*pi*t/tau));
@@ -24,8 +24,9 @@ u_b2 = @(t) sign(sin(2*pi*t/tau));
 
 plot(x,u_lf1(:,end)); hold on; plot(x,u_up1(:,end));plot(x,u_lw1(:,end))
 xlabel("x")
-legend("Lax-Friedrich", "Upwind", "Lax-Wendroff")
-% For 'g_sin'
+legend("Lax-Friedrichs", "Upwind", "Lax-Wendroff")
+
+% For 'g_sq'
 
 [~, x, u_lf2] = hyperbolic1D(1, N, u_b2, l);
 
@@ -36,7 +37,7 @@ legend("Lax-Friedrich", "Upwind", "Lax-Wendroff")
 figure
 plot(x,u_lf2(:,end)); hold on; plot(x,u_up2(:,end));plot(x,u_lw2(:,end))
 xlabel("x")
-legend("Lax-Friedrich", "Upwind", "Lax-Wendroff")
+legend("Lax-Friedrichs", "Upwind", "Lax-Wendroff")
 
 
 function [t, x, u] = hyperbolic1D(scheme, N, bound, lambda)
