@@ -1,0 +1,47 @@
+%% Computer Exercise 4, David Ahnlund, Emil Gestsson
+clc, clear variables;
+
+global a D T
+
+a = 2; D = 10; T = 4;
+ 
+N = 100; 
+l = 0.4;
+
+
+tau = 2;
+u_b1 = @(t) sin(2*pi*t/tau);
+
+u_b2 = @(t) sign(sin(2*pi*t/tau));
+
+function [t, x, u] = hyperbolic1D(scheme, N, bound, lambda)
+
+    global D T a dx dt t
+    
+    %scheme: 1 = Lax-Friedrichs, 2 = Upwind, 3 = Lax-Wendroff
+    
+    dx = D/N;
+    dt = lambda*dx;
+    t = 0:dt:T;
+    x = 0:dx:D;
+
+    u0 = zeros(N,1);
+    u = zeros(length(u0), length(t));
+    u(:,1) = u0;
+    
+    uk = u0;
+    for n = 2:length(t)
+
+        for i = 2:length(x)-1
+            u_new = zeros(size(uk));
+            u_new(i) = uk(i) - a*l/2*(uk(i+1)-uk(i-1)) + a^2*l^2/2*(uk(i+1)-2*uk(i)+uk(i-1));
+
+            if i == length(x)-1
+                u_new(i+1) = 2*uk(i)-uk(i-1);
+            end
+        end
+        u(:,n) = u_new;
+        uk = u_new;
+    end
+
+end
