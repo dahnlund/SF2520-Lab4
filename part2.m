@@ -1,5 +1,5 @@
 %% SF2520 CE4, David Ahnlund, Emil Gestsson
-function part2(CFL, N, plot_option)
+function part2(CFL, N, plot_option, animation)
 
 Fr = 0.35;
 alpha = 1/Fr;
@@ -67,6 +67,18 @@ for n = 2:length(t)-1
         end
 
     end
+
+    if animation == true
+    u_lax = reshape(v(1,:,:), length(x), length(t));
+    plot(x, u_lax(:,n), LineWidth=2)
+    title("Lax-Wendroff")
+    ylabel("x")
+    xlabel("t")
+    xlim([L0 L1])
+    ylim([-0.02 0.02])
+    drawnow
+    end
+    
 end
 
 u_lax = reshape(v(1,:,:), length(x), length(t));
