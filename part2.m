@@ -36,7 +36,7 @@ for n = 2:length(t)-1
             v(:,i-1,n) = 2*v(:,i,n)-v(:,i+1,n);
         end
 
-        v(:,i,n+1) = v(:,i,n) - lambda*Ap*(v(:,i,n)-v(:,i-1,n)) - lambda*Am*(v(:,i+1,n)-v(:,i,n)) + F(x(i),t(n));
+        v(:,i,n+1) = v(:,i,n) - lambda*Ap*(v(:,i,n)-v(:,i-1,n)) - lambda*Am*(v(:,i+1,n)-v(:,i,n)) + dt*F(x(i),t(n));
         
         if i == length(x)-1
             v(:,i+1,n) = 2*v(:,i,n)-v(:,i-1,n);
@@ -60,7 +60,7 @@ for n = 2:length(t)-1
         end
         
         F_tilde = (F(x(i), t(n)) + F(x(i), t(n+1)))/2 - lambda/4 * A * (F(x(i+1), t(n)) - F(x(i-1), t(n)));
-        v(:,i,n+1) = v(:,i,n) - lambda/2*A*(v(:,i+1,n)-v(:,i-1,n)) + lambda^2/2*A^2*(v(:,i+1,n)-2*v(:,i,n)+v(:,i-1,n)) + F_tilde;
+        v(:,i,n+1) = v(:,i,n) - lambda/2*A*(v(:,i+1,n)-v(:,i-1,n)) + lambda^2/2*A^2*(v(:,i+1,n)-2*v(:,i,n)+v(:,i-1,n)) + dt*F_tilde;
         
         if i == length(x)-1
             v(:,i+1,n) = 2*v(:,i,n)-v(:,i-1,n);
@@ -76,15 +76,15 @@ if plot_option ~= false
 figure
 mesh(t,x, u_lax)
 title("Lax-Wendroff")
-xlabel("x")
-ylabel("t")
-%shading interp
+ylabel("x")
+xlabel("t")
+
 figure
 mesh(t,x, u_up)
 title("Upwind")
-xlabel("x")
-ylabel("t")
-%shading interp
+ylabel("x")
+xlabel("t")
+
 end
 
 % Compare plots
