@@ -46,11 +46,14 @@ for n = 2:length(t)-1
     end
 end
 
+u1 = reshape(v(1,:,:), length(x), length(t));
+u2 = reshape(v(2,:,:), length(x), length(t));
+surf(t,x, u1)
+figure
+surf(t,x, u2)
+figure
+
 %% Laxen
-
-[S, L] = eig(A); Lp = L.* (L>0); Lm = L.*(L<0);
-
-Am = S*(S\Lm)'; Ap = S*(S\Lp)';
 
 v = zeros(2,length(x), length(t));
 
@@ -70,8 +73,6 @@ for n = 2:length(t)-1
 
     end
 end
-
-%%
 
 u1 = reshape(v(1,:,:), length(x), length(t));
 u2 = reshape(v(2,:,:), length(x), length(t));
