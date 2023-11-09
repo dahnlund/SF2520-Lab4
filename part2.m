@@ -1,14 +1,13 @@
 %% SF2520 CE4, David Ahnlund, Emil Gestsson
-clc, clear variables;
+function part2(CFL, N, plot_option)
 
 Fr = 0.35;
 alpha = 1/Fr;
-N = 300;
 L0 = -0.4;
 L1 = 0.7;
 T = 0.15;
 
-lambda = 0.1;
+lambda = CFL;
 
 f = @(x,t) (sin(20*pi*x).*(abs(x) < 1/20))' * (sin(40*pi*t + pi/6)>0.5);
 
@@ -22,7 +21,7 @@ dt = lambda*dx;
 t = 0:dt:T;
 x = L0:dx:L1;
 
-%% Upwind
+%Upwind:
 
 [S, L] = eig(A); Lp = L.* (L>0); Lm = L.*(L<0);
 
@@ -48,12 +47,8 @@ end
 
 u_up = reshape(v(1,:,:), length(x), length(t));
 v_up = reshape(v(2,:,:), length(x), length(t));
-figure
-surf(t,x, u_up)
-shading interp
 
-
-%% Laxen
+% Lax-Wendroff
 
 v = zeros(2,length(x), length(t));
 
@@ -76,12 +71,23 @@ end
 
 u_lax = reshape(v(1,:,:), length(x), length(t));
 v_lax = reshape(v(2,:,:), length(x), length(t));
+
+if plot_option ~= false
 figure
-surf(t,x, u_lax)
-shading interp
+mesh(t,x, u_lax)
+title("Lax-Wendroff")
+xlabel("x")
+ylabel("t")
+%shading interp
+figure
+mesh(t,x, u_up)
+title("Upwind")
+xlabel("x")
+ylabel("t")
+%shading interp
+end
 
-
-%% Compare plots
+% Compare plots
 
 figure
 plot(x, u_up(:, end)); hold on; plot(x, u_lax(:,end));
@@ -93,4 +99,4 @@ plot(x, v_up(:,end)); hold on; plot(x, v_lax(:,end));
 title("v")
 legend("Upwind", "Lax-Wendroff")
 xlabel("x")
-
+end
