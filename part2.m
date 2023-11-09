@@ -3,7 +3,7 @@ clc, clear variables;
 
 Fr = 0.35;
 alpha = 1/Fr;
-N = 100;
+N = 300;
 L0 = -0.4;
 L1 = 0.7;
 T = 0.15;
@@ -46,12 +46,12 @@ for n = 2:length(t)-1
     end
 end
 
-u1 = reshape(v(1,:,:), length(x), length(t));
-u2 = reshape(v(2,:,:), length(x), length(t));
-surf(t,x, u1)
+u_up = reshape(v(1,:,:), length(x), length(t));
+v_up = reshape(v(2,:,:), length(x), length(t));
 figure
-surf(t,x, u2)
-figure
+surf(t,x, u_up)
+shading interp
+
 
 %% Laxen
 
@@ -74,8 +74,23 @@ for n = 2:length(t)-1
     end
 end
 
-u1 = reshape(v(1,:,:), length(x), length(t));
-u2 = reshape(v(2,:,:), length(x), length(t));
-surf(t,x, u1)
+u_lax = reshape(v(1,:,:), length(x), length(t));
+v_lax = reshape(v(2,:,:), length(x), length(t));
 figure
-surf(t,x, u2)
+surf(t,x, u_lax)
+shading interp
+
+
+%% Compare plots
+
+figure
+plot(x, u_up(:, end)); hold on; plot(x, u_lax(:,end));
+title("u")
+legend("Upwind", "Lax-Wendroff")
+xlabel("x")
+figure
+plot(x, v_up(:,end)); hold on; plot(x, v_lax(:,end));
+title("v")
+legend("Upwind", "Lax-Wendroff")
+xlabel("x")
+

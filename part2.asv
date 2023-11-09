@@ -46,11 +46,13 @@ for n = 2:length(t)-1
     end
 end
 
+u_up = reshape(v(1,:,:), length(x), length(t));
+v_up = reshape(v(2,:,:), length(x), length(t));
+figure
+surf(t,x, u_up)
+
+
 %% Laxen
-
-[S, L] = eig(A); Lp = L.* (L>0); Lm = L.*(L<0);
-
-Am = S*(S\Lm)'; Ap = S*(S\Lp)';
 
 v = zeros(2,length(x), length(t));
 
@@ -60,8 +62,9 @@ for n = 2:length(t)-1
         if i == 2
             v(:,i-1,n) = 2*v(:,i,n)-v(:,i+1,n);
         end
-
-        v(:,i,n+1) = v(:,i,n) - lambda/2*A*(v(:,i+1,n)-v(:,i-1,n)) + lambda^2/2*A^2*(v(:,i+1,n)-v(:,i,n)) + F(x(i),t(n));
+        
+        F_tilde = (F(x(i), t(n)) + F(x(i), t(n+1)))/2 - lambda/4 * A * (F(x(i+1), t(n)) - F(x(i-1), t(n)));
+        v(:,i,n+1) = v(:,i,n) - lambda/2*A*(v(:,i+1,n)-v(:,i-1,n)) + lambda^2/2*A^2*(v(:,i+1,n)-2*v(:,i,n)+v(:,i-1,n)) + F_tilde;
         
         if i == length(x)-1
             v(:,i+1,n) = 2*v(:,i,n)-v(:,i-1,n);
@@ -70,10 +73,12 @@ for n = 2:length(t)-1
     end
 end
 
-%%
-
-u1 = reshape(v(1,:,:), length(x), length(t));
-u2 = reshape(v(2,:,:), length(x), length(t));
-surf(t,x, u1)
+u_lax = reshape(v(1,:,:), length(x), length(t));
+v_lax = reshape(v(2,:,:), length(x), length(t));
 figure
-surf(t,x, u2)
+surf(t,x, u_lax)
+
+
+%% Compare plots
+
+
