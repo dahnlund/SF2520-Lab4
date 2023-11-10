@@ -37,10 +37,14 @@ plot(x,u_lf2(:,end)); hold on; plot(x,u_lw2(:,end));plot(x,u_up2(:,end))
 xlabel("x")
 legend("Lax-Friedrichs","Lax-Wendroff", "Upwind")
 
+
+%%
+
 figure
-mesh(t,x,u_lf2)
+plot1c1(0.05:0.05:0.5, u_b2, 500, 3);
 
-
+figure
+plot1c2(0.4, u_b2, 100:100:1500, 3);
 
 
 
