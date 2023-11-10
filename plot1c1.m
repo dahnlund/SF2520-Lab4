@@ -10,3 +10,5 @@ for i = 1:length(CFL)
 
     plot(x, u(:,end)); hold on
 end
+title("Plot of u(x,T), CFL in [" + string(CFL(1))+","+string(CFL(end))+"]")
+xlabel("x")

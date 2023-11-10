@@ -10,3 +10,5 @@ for i = 1:length(N)
 
     plot(x, u(:,end)); hold on
 end
+title("Plot of u(x,T), N in [" + string(N(1))+","+string(N(end))+"]")
+xlabel("x")

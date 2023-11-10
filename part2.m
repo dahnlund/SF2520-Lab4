@@ -1,6 +1,11 @@
 %% SF2520 CE4, David Ahnlund, Emil Gestsson
 function part2(CFL, N, plot_option, animation)
 
+% CFL: ratio dt/dx, has to be < 1/(1+alpha), where alpha defined as below
+% N: Discretization resoltion in x
+% plot_option: if false, do not plot 3D
+% animation: if true, animate the evolution of u in the Lax-Wendroff case
+
 Fr = 0.35;
 alpha = 1/Fr;
 L0 = -0.4;
@@ -71,9 +76,9 @@ for n = 2:length(t)-1
     if animation == true
     u_lax = reshape(v(1,:,:), length(x), length(t));
     plot(x, u_lax(:,n), LineWidth=2)
-    title("Lax-Wendroff")
-    ylabel("x")
-    xlabel("t")
+    title("Lax-Wendroff, t = " + string(round(t(n),4)))
+    ylabel("u")
+    xlabel("x")
     xlim([L0 L1])
     ylim([-0.02 0.02])
     drawnow
@@ -103,12 +108,12 @@ end
 
 figure
 plot(x, u_up(:, end)); hold on; plot(x, u_lax(:,end));
-title("u")
+title("u(x," + string(round(t(end),4))+")")
 legend("Upwind", "Lax-Wendroff")
 xlabel("x")
 figure
 plot(x, v_up(:,end)); hold on; plot(x, v_lax(:,end));
-title("v")
+title("v(x," + string(round(t(end),4))+")")
 legend("Upwind", "Lax-Wendroff")
 xlabel("x")
 end
