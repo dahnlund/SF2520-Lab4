@@ -3,7 +3,6 @@ using Plots
 
 function part2(CFL, N, plot_option = true)
 
-
 plotly()
 
 Fr = 0.35
