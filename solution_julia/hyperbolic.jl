@@ -21,8 +21,8 @@ function hyperbolic(scheme, a, bound, N, lambda, D, T)
         k = abs(a)*dx*dt
     end
 
-    for n = 2:length(t)-1
-        for i = 2:length(x)-1
+    for n in 2:length(t)-1
+        for i in 2:length(x)-1
 
             u[i,n+1] = u[i,n] - a*lambda/2*(u[i+1,n]-u[i-1,n]) + 1/2*k*(u[i+1,n]-2*u[i,n]+u[i-1,n])/dx^2
 

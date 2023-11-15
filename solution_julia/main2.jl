@@ -3,8 +3,7 @@
 include("part2.jl")
 
 CFL = 0.2;
-N = 300;
+N = 400;
 plot_option = true;
-animation = true;
 
 part2(CFL, N, plot_option) # Runs part 2

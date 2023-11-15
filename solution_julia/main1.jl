@@ -3,6 +3,8 @@
 using Plots
 using LinearAlgebra
 include("hyperbolic.jl")
+include("plot1c1.jl")
+include("plot1c2.jl")
 
 a = 2; D = 10; T = 4
  
@@ -61,11 +63,8 @@ xlabel!("x")
 title!("Plot of u(x,"*string(round(t[end],digits=4))*"), sq")
 display(plot2)
 
-"""
-%%
-figure
+
 plot1c1(0.05:0.05:0.5, u_b2, 500, 3);
 
-figure
+
 plot1c2(0.4, u_b2, 100:100:1500, 3);
-"""
