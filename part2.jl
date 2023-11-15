@@ -1,10 +1,11 @@
 using LinearAlgebra
 using Plots
 
+function part2(CFL, N, plot_option = true)
+
+
 plotly()
 
-CFL = 0.2
-N = 300
 Fr = 0.35
 alpha = 1/Fr
 L0 = -0.4
@@ -80,24 +81,25 @@ end
 u_lax = reshape(v[1,:,:], length(x), length(t));
 v_lax = reshape(v[2,:,:], length(x), length(t));
 
+if plot_option != false
 
+    plot1 = surface(t,x,u_up, size= (800,800), title = "Upwind", xlabel = "t", ylabel = "x")
 
-plot1 = surface(t,x,u_up, size= (800,800), title = "Upwind", xlabel = "t", ylabel = "x")
+    plot2 = surface(t,x,u_lax, size = (800,800), title = "Lax Wendroff", xlabel = "t", ylabel = "x")
+    
+    display(plot1)
 
-plot2 = surface(t,x,u_lax, size = (800,800), title = "Lax Wendroff", xlabel = "t", ylabel = "x")
- 
-display(plot1)
+    display(plot2)
 
-display(plot2)
-
+end
 # Compare plots
 
-plot_u_end = plot(x, u_up[:,end], label = "Upwind")
+plot_u_end = plot(x, u_up[:,end], label = "Upwind",size = (800,700))
 plot!(x, u_lax[:,end], label="Lax-Wendroff")
 title!("u(x, " * string(round(t[end], digits  =4)) * ")")
 xlabel!("x")
 
-plot_v_end = plot(x, v_up[:,end],label="Upwind")
+plot_v_end = plot(x, v_up[:,end],label="Upwind",size = (800,700))
 plot!(x, v_lax[:,end], label="Lax-Wendroff")
 title!("v(x, " * string(round(t[end], digits = 4)) * ")")
 xlabel!("x")
@@ -106,3 +108,4 @@ xlabel!("x")
 display(plot_u_end)
 display(plot_v_end)
 
+end
