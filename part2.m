@@ -30,7 +30,17 @@ x = L0:dx:L1;
 
 [S, L] = eig(A); Lp = L.* (L>0); Lm = L.*(L<0);
 
-Am = S*(S\Lm)'; Ap = S*(S\Lp)';
+S
+
+L
+
+Lp
+
+Lm
+
+Am = S*(S\Lm)'
+
+Ap = S*(S\Lp)'
 
 v = zeros(2,length(x), length(t));
 

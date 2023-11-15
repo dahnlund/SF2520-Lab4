@@ -1,7 +1,7 @@
 %% Computer Exercise 4, David Ahnlund, Emil Gestsson
 
 CFL = 0.2;
-N = 400;
+N = 300;
 plot_option = true;
 animation = true;
 
