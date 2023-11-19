@@ -1,7 +1,7 @@
 using LinearAlgebra
 using Plots
 
-function part2(CFL, N, plot_option = true)
+function part2(CFL, N, T, plot_option = true)
 
 plotly()
 
@@ -9,7 +9,6 @@ Fr = 0.35
 alpha = 1/Fr
 L0 = -0.4
 L1 = 0.7
-T = 0.15
 
 lambda = CFL;
 
@@ -107,5 +106,12 @@ xlabel!("x")
 # Display the combined plots
 display(plot_u_end)
 display(plot_v_end)
+
+
+plot3 = plot(t,u_lax[1,:], size = (800,600), label = "u(L0,t)", legend=:bottomleft)
+plot!(t,u_lax[end,:], label = "u(L1,t)")
+title!("Boundary plot of u")
+xlabel!("t")
+display(plot3)
 
 end

@@ -10,7 +10,7 @@ function plot1c2(CFL, bound, N, scheme)
 
         _, x, u = hyperbolic(scheme,a,bound,N[i], CFL, D, T)
 
-        plot!(x, u[:,end])
+        plot!(x, u[:,end], legend=:false)
     end
     title!("Plot of u(x,T), N in [" * string(N[1])*","*string(N[end])*"]")
     xlabel!("x")
