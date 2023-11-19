@@ -34,11 +34,11 @@ end
 
 #### 1B
 # For 'g_sin'
-plot1b(u_b1,a,N,lambda,D,T,u_exact1)
+plot1b(u_b1, a, N, lambda, D, T, u_exact1)
 
 
 # For 'g_sq'
-plot1b(u_b2,a,N,lambda,D,T,u_exact2)
+plot1b(u_b2, a, N, lambda, D, T, u_exact2)
 ####
 
 
