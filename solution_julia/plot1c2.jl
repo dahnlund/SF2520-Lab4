@@ -5,7 +5,7 @@ using Plots
 function plot1c2(CFL, bound, N, scheme)
 
     a = 2; D = 10; T = 4;
-    plot_ = plot()
+    plot_ = plot(size = (800,600))
     for i in eachindex(N)
 
         _, x, u = hyperbolic(scheme,a,bound,N[i], CFL, D, T)

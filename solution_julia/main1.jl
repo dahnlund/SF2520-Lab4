@@ -9,7 +9,7 @@ include("plot1c2.jl")
 a = 2; D = 10; T = 4
  
 N = 100
-l = 0.4
+lambda = 0.4
 
 tau = 2
 
@@ -33,13 +33,11 @@ end
 
 # For 'g_sin'
 
-t, x, u_lf1 = hyperbolic(1, a, u_b1, N, l, D, T)
+t, x, u_lf1 = hyperbolic(1, a, u_b1, N, lambda, D, T)
+_, _, u_lw1 = hyperbolic(2, a, u_b1, N, lambda, D, T)
+_, _, u_up1 = hyperbolic(3, a, u_b1, N, lambda, D, T)
 
-_, _, u_lw1 = hyperbolic(2, a, u_b1, N, l, D, T)
-
-_, _, u_up1 = hyperbolic(3, a, u_b1, N, l, D, T)
-
-plot1 = plot(x,u_lf1[:,end], label = "Lax-Friedrichs")
+plot1 = plot(x,u_lf1[:,end], label = "Lax-Friedrichs", size = (800,600))
 plot!(x,u_lw1[:,end], label = "Lax-Wendroff")
 plot!(x,u_up1[:,end], label = "Upwind")
 plot!(x, u_exact1(x,t[end]), label = "Exact")
@@ -49,13 +47,11 @@ display(plot1)
 
 # For 'g_sq'
 
-_, _, u_lf2 = hyperbolic(1, a, u_b2, N, l, D, T)
+_, _, u_lf2 = hyperbolic(1, a, u_b2, N, lambda, D, T)
+_, _, u_lw2 = hyperbolic(2, a, u_b2, N, lambda, D, T)
+_, _, u_up2 = hyperbolic(3, a, u_b2, N, lambda, D, T)
 
-_, _, u_lw2 = hyperbolic(2, a, u_b2, N, l, D, T)
-
-_, _, u_up2 = hyperbolic(3, a, u_b2, N, l, D, T)
-
-plot2 = plot(x,u_lf2[:,end], label = "Lax-Friedrichs")
+plot2 = plot(x,u_lf2[:,end], label = "Lax-Friedrichs", size = (800,600))
 plot!(x,u_lw2[:,end], label = "Lax-Wendroff")
 plot!(x,u_up2[:,end], label = "Upwind")
 plot!(x, u_exact2(x,t[end]), label = "Exact")
