@@ -3,6 +3,7 @@
 using Plots
 using LinearAlgebra
 include("hyperbolic.jl")
+include("plot1b.jl")
 include("plot1c1.jl")
 include("plot1c2.jl")
 
@@ -31,36 +32,17 @@ function u_exact2(x,t)
     return (-u_b2(x'/a .- t) .* (x'.-a*t.<0))'
 end
 
+#### 1B
 # For 'g_sin'
+plot1b(u_b1,a,N,lambda,D,T,u_exact1)
 
-t, x, u_lf1 = hyperbolic(1, a, u_b1, N, lambda, D, T)
-_, _, u_lw1 = hyperbolic(2, a, u_b1, N, lambda, D, T)
-_, _, u_up1 = hyperbolic(3, a, u_b1, N, lambda, D, T)
-
-plot1 = plot(x,u_lf1[:,end], label = "Lax-Friedrichs", size = (800,600))
-plot!(x,u_lw1[:,end], label = "Lax-Wendroff")
-plot!(x,u_up1[:,end], label = "Upwind")
-plot!(x, u_exact1(x,t[end]), label = "Exact")
-xlabel!("x")
-title!("Plot of u(x,"*string(round(t[end],digits=4))*"), sin")
-display(plot1)
 
 # For 'g_sq'
-
-_, _, u_lf2 = hyperbolic(1, a, u_b2, N, lambda, D, T)
-_, _, u_lw2 = hyperbolic(2, a, u_b2, N, lambda, D, T)
-_, _, u_up2 = hyperbolic(3, a, u_b2, N, lambda, D, T)
-
-plot2 = plot(x,u_lf2[:,end], label = "Lax-Friedrichs", size = (800,600))
-plot!(x,u_lw2[:,end], label = "Lax-Wendroff")
-plot!(x,u_up2[:,end], label = "Upwind")
-plot!(x, u_exact2(x,t[end]), label = "Exact")
-xlabel!("x")
-title!("Plot of u(x,"*string(round(t[end],digits=4))*"), sq")
-display(plot2)
+plot1b(u_b2,a,N,lambda,D,T,u_exact2)
+####
 
 
+#### 1C
 plot1c1(0.05:0.05:0.5, u_b2, 500, 3);
-
 
 plot1c2(0.4, u_b2, 100:100:1500, 3);
