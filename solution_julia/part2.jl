@@ -34,6 +34,7 @@ L, S = eigen(A); L = diagm(L)
 Lp = L.* (L.>0); Lm = L.*(L.<0)
 
 Am = S*(S\Lm)'; Ap = S*(S\Lp)'
+#Am = S*Lm*S'; Ap = S*Lp*S'
 
 v = zeros(2,length(x), length(t));
 
